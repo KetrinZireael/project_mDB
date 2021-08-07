@@ -26,18 +26,30 @@ const movieDB = {
 
 let adv = document.querySelectorAll('.promo__adv img'),
     poster = document.querySelector('.promo__bg'),
-    genre = poster.querySelector('.promo__genre');
+    genre = poster.querySelector('.promo__genre'),
+    list = document.querySelector('.promo__interactive-list'),
+    item = list.querySelectorAll('.promo__interactive-item');
 
 
-let removeAdv = () => {
-        adv.forEach(item => {
+let removeElements = (elements) => {
+        elements.forEach(item => {
         item.remove();
     });
 };
 let newText = () => genre.textContent = 'НАУЧНАЯ ФАНТАСТИКА, ДРАМА';
 let newBackgroundImage = () => poster.style.backgroundImage = 'url("../img/bg.jpg")';
 
+list.innerHTML = "";
+movieDB.movies.sort();
+movieDB.movies.forEach((film, i) => {
+    list.innerHTML += `
+    <li class="promo__interactive-item">${i+1} ${film}
+        <div class="delete"></div>
+    </li>
+    `;
+});
 
-removeAdv();
+
+removeElements(adv);
 newText();
 newBackgroundImage();
