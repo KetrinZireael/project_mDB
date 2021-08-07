@@ -24,17 +24,20 @@ const movieDB = {
     ]
 };
 
-const adv = document.querySelectorAll('.promo__adv img'),
-    genre = document.querySelector('.promo__genre');
+let adv = document.querySelectorAll('.promo__adv img'),
+    poster = document.querySelector('.promo__bg'),
+    genre = poster.querySelector('.promo__genre');
 
-    
+
 let removeAdv = () => {
         adv.forEach(item => {
         item.remove();
     });
 };
-let fixText = () => genre.textContent = 'НАУЧНАЯ ФАНТАСТИКА, ДРАМА';
+let newText = () => genre.textContent = 'НАУЧНАЯ ФАНТАСТИКА, ДРАМА';
+let newBackgroundImage = () => poster.style.backgroundImage = 'url("../img/bg.jpg")';
 
 
 removeAdv();
-fixText();
+newText();
+newBackgroundImage();
