@@ -24,7 +24,17 @@ const movieDB = {
     ]
 };
 
-let adv = document.querySelectorAll('.promo__adv img');
-adv.forEach(item => {
-    item.remove();
-});
+const adv = document.querySelectorAll('.promo__adv img'),
+    genre = document.querySelector('.promo__genre');
+
+    
+let removeAdv = () => {
+        adv.forEach(item => {
+        item.remove();
+    });
+};
+let fixText = () => genre.textContent = 'НАУЧНАЯ ФАНТАСТИКА, ДРАМА';
+
+
+removeAdv();
+fixText();
