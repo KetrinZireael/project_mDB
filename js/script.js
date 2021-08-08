@@ -91,8 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             movieDB.movies.push(film);
             listFilms();
+            input.value = '';
         }
-        button.target.reset();
+        
     }
     
     removeElements(adv);
