@@ -10,7 +10,23 @@
 4) Список фильмов на странице сформировать на основании данных из этого JS файла.
 Отсортировать их по алфавиту 
 
-5) Добавить нумерацию выведенных фильмов */
+5) Добавить нумерацию выведенных фильмов 
+
+6) Реализовать функционал, что после заполнения формы и нажатия кнопки "Подтвердить" - 
+новый фильм добавляется в список. Страница не должна перезагружаться.
+Новый фильм должен добавляться в movieDB.movies.
+Для получения доступа к значению input - обращаемся к нему как input.value;
+P.S. Здесь есть несколько вариантов решения задачи, принимается любой, но рабочий.
+
+7) Если название фильма больше, чем 21 символ - обрезать его и добавить три точки
+
+8) При клике на мусорную корзину - элемент будет удаляться из списка (сложно)
+
+9) Если в форме стоит галочка "Сделать любимым" - в консоль вывести сообщение: 
+"Добавляем любимый фильм"
+
+10) Фильмы должны быть отсортированы по алфавиту
+*/
 
 'use strict';
 
@@ -24,11 +40,18 @@ const movieDB = {
     ]
 };
 
+let img = ['url("../img/bg.jpg")', 'url("../img/mars.webp")'];
+
+
 let adv = document.querySelectorAll('.promo__adv img'),
     poster = document.querySelector('.promo__bg'),
     genre = poster.querySelector('.promo__genre'),
     list = document.querySelector('.promo__interactive-list'),
-    item = list.querySelectorAll('.promo__interactive-item');
+    item = list.querySelectorAll('.promo__interactive-item'),
+    input = document.querySelector('.adding__input'),
+    button = document.querySelector('button');
+
+button.addEventListener('click', addFilm);
 
 
 let removeElements = (elements) => {
@@ -39,17 +62,26 @@ let removeElements = (elements) => {
 let newText = () => genre.textContent = 'НАУЧНАЯ ФАНТАСТИКА, ДРАМА';
 let newBackgroundImage = () => poster.style.backgroundImage = 'url("../img/bg.jpg")';
 
-list.innerHTML = "";
-movieDB.movies.sort();
-movieDB.movies.forEach((film, i) => {
-    list.innerHTML += `
-    <li class="promo__interactive-item">${i+1} ${film}
-        <div class="delete"></div>
-    </li>
-    `;
-});
+let listFilms = () => {
+    list.innerHTML = "";
+    movieDB.movies.sort();
+    movieDB.movies.forEach((film, i) => {
+        list.innerHTML += `
+        <li class="promo__interactive-item">${i+1} ${film}
+            <div class="delete"></div>
+        </li>
+        `;
+    });
+};
 
+function addFilm() {
+    let film = input.value;
+    movieDB.movies.push(film);
+    listFilms();
+}
 
 removeElements(adv);
 newText();
 newBackgroundImage();
+listFilms();
+
