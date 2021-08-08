@@ -30,58 +30,74 @@ P.S. Здесь есть несколько вариантов решения з
 
 'use strict';
 
-const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против..."
-    ]
-};
+document.addEventListener('DOMContentLoaded', () => {
+    const movieDB = {
+        movies: [
+            "Логан",
+            "Лига справедливости",
+            "Ла-ла лэнд",
+            "Одержимость",
+            "Скотт Пилигрим против..."
+        ]
+    };
+    
+    let img = ['url("../img/bg.jpg")', 'url("../img/mars.webp")'];
+    
+    
+    let adv = document.querySelectorAll('.promo__adv img'),
+        poster = document.querySelector('.promo__bg'),
+        genre = poster.querySelector('.promo__genre'),
+        list = document.querySelector('.promo__interactive-list'),
+        item = list.querySelectorAll('.promo__interactive-item'),
+        input = document.querySelector('.adding__input'),
+        button = document.querySelector('button'),
+        checkbox = document.querySelector('[type="checkbox"]');
+    
+    button.addEventListener('click', addFilm);
+    
+    
+    let removeElements = (elements) => {
+            elements.forEach(item => {
+            item.remove();
+        });
+    };
+    let newText = () => genre.textContent = 'НАУЧНАЯ ФАНТАСТИКА, ДРАМА';
+    let newBackgroundImage = () => poster.style.backgroundImage = 'url("../img/bg.jpg")';
+    
+    let listFilms = () => {
+        list.innerHTML = "";
+        movieDB.movies.sort();
+        movieDB.movies.forEach((film, i) => {
+            if(film.length > 21) {
+                film.slice(21);
+                // return film;
+            }
+            list.innerHTML += `
+            <li class="promo__interactive-item">${i+1} ${film}
+                <div class="delete"></div>
+            </li>
+            `;
+        });
+    };
+    
+    function addFilm() {
+        let film = input.value;
+        let favorite = checkbox.checked;
 
-let img = ['url("../img/bg.jpg")', 'url("../img/mars.webp")'];
+        if (film) {
+            if (film.length > 21) {
+                film = `${film.substring(0, 22)}...`;
+            }
 
-
-let adv = document.querySelectorAll('.promo__adv img'),
-    poster = document.querySelector('.promo__bg'),
-    genre = poster.querySelector('.promo__genre'),
-    list = document.querySelector('.promo__interactive-list'),
-    item = list.querySelectorAll('.promo__interactive-item'),
-    input = document.querySelector('.adding__input'),
-    button = document.querySelector('button');
-
-button.addEventListener('click', addFilm);
-
-
-let removeElements = (elements) => {
-        elements.forEach(item => {
-        item.remove();
-    });
-};
-let newText = () => genre.textContent = 'НАУЧНАЯ ФАНТАСТИКА, ДРАМА';
-let newBackgroundImage = () => poster.style.backgroundImage = 'url("../img/bg.jpg")';
-
-let listFilms = () => {
-    list.innerHTML = "";
-    movieDB.movies.sort();
-    movieDB.movies.forEach((film, i) => {
-        list.innerHTML += `
-        <li class="promo__interactive-item">${i+1} ${film}
-            <div class="delete"></div>
-        </li>
-        `;
-    });
-};
-
-function addFilm() {
-    let film = input.value;
-    movieDB.movies.push(film);
+            movieDB.movies.push(film);
+            listFilms();
+        }
+        button.target.reset();
+    }
+    
+    removeElements(adv);
+    newText();
+    newBackgroundImage();
     listFilms();
-}
-
-removeElements(adv);
-newText();
-newBackgroundImage();
-listFilms();
+});
 
