@@ -93,6 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (film.length > 21) {
                 film = `${film.substring(0, 22)}...`;
             }
+            if (favorite) {
+                alert('Добавляем любимый фильм');
+            }
             movieDB.movies.push(film);
             listFilms();
             input.value = '';
