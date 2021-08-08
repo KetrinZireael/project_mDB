@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     button.addEventListener('click', addFilm);
     
-    
     let removeElements = (elements) => {
             elements.forEach(item => {
             item.remove();
@@ -70,13 +69,19 @@ document.addEventListener('DOMContentLoaded', () => {
         movieDB.movies.forEach((film, i) => {
             if(film.length > 21) {
                 film.slice(21);
-                // return film;
             }
             list.innerHTML += `
             <li class="promo__interactive-item">${i+1} ${film}
                 <div class="delete"></div>
             </li>
             `;
+        });
+        document.querySelectorAll('.delete').forEach((btn, i) => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.remove();
+                movieDB.movies.splice(i, 1);
+                listFilms();
+            });
         });
     };
     
@@ -88,14 +93,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (film.length > 21) {
                 film = `${film.substring(0, 22)}...`;
             }
-
             movieDB.movies.push(film);
             listFilms();
             input.value = '';
         }
-        
     }
-    
+
     removeElements(adv);
     newText();
     newBackgroundImage();
